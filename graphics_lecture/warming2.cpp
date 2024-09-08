@@ -7,6 +7,12 @@ class sentences
 {
 private:
     std::string sentence[10];
+    bool has_color = false;
+    bool has_reverse_line = false;
+    bool has_insert_at = false;
+    bool has_reverse_space = false;
+    bool has_change = false;
+    bool has_print_sort = false;
 public:
     sentences() {
         std::ifstream testFile;
@@ -22,13 +28,13 @@ public:
         }
         testFile.close();
     }
-    void color(int selected);
-    void reverse_line(int selected);
-    void insert_at(int selected);
-    void reverse_space(int selected);
-    void change(int selected);
+    void color();
+    void reverse_line();
+    void insert_at();
+    void reverse_space();
+    void change();
     void print();
-    void print_sort(int selected);
+    void print_sort();
     void find_word();
     void print_4_debug() {
         int i = 0;
@@ -42,50 +48,44 @@ public:
     }
 };
 
-void sentences::color(int selected) {
-    if(){
-        for (int i = 0; i < 10; ++i) {
-            for (int j = 0; j < sentence[i].length(); ++j) {
-                if (j == 0) {
-                    if (isupper(sentence[i][j] != 0)) {
-                        //첫단어 대문자일때 출력
-                    }
-                    else {
-                        //첫단어 대문자 아닐때 출력
-                    }
-                }
-                else {
-                    if (sentence[i][j - 1] == ' ') {
-                        if (isupper(sentence[i][j]) != 0) {
-                            //나머지 단어가 대문자일때 출력
-                        }
-                        else {
-                            //나머지 단어가 대문자 아닐때 출력
-                        }
-                    }
-
-                }
+void sentences::color() {
+    if (has_color) {
+        int i = 0;
+        while (true) {
+            std::cout << sentence[i] << '\n';
+            ++i;
+            if (i == 10) {
+                break;
             }
         }
+        has_color = !has_color;
+    }
+    else {
+
+
+
+
+
+        has_color = !has_color;
     }
 }
-void sentences::reverse_line(int selected) {
+void sentences::reverse_line() {
 
 }
-void sentences::insert_at(int selected) {
+void sentences::insert_at() {
 
 }
-void sentences::reverse_space(int selected) {
+void sentences::reverse_space() {
 
 }
-void sentences::change(int selected) {
+void sentences::change() {
 
 }
 void sentences::print() {
   
 }
 
-void sentences::print_sort(int selected) {
+void sentences::print_sort() {
 
 }
 void sentences::find_word() {
@@ -95,4 +95,33 @@ void sentences::find_word() {
 int main() {
     sentences s;
     s.print_4_debug();
+    char menu;
+    while(true){
+        std::cout << "실행할 명령을 입력하시오: ";
+        std::cin >> menu;
+        switch (menu) {
+        case 'c':
+            s.color();
+            break;
+
+        case 'd':
+            break;
+        case 'e':
+            break;
+        case 'f':
+            break;
+        case 'g':
+            break;
+        case 'h':
+            break;
+        case 'r':
+            break;
+        case 's':
+            break;
+        case 'q':
+            break;
+        default:
+            break;
+        }
+    }
 }
