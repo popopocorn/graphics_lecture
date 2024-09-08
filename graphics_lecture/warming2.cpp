@@ -43,26 +43,28 @@ public:
 };
 
 void sentences::color(int selected) {
-    for (int i = 0; i < 10; ++i) {
-        for (int j = 0; j < sentence[i].length(); ++j) {
-            if (j == 0) {
-                if (isupper(sentence[i][j] != 0)) {
-                    //첫단어 대문자일때 출력
-                }
-                else {
-                    //첫단어 대문자 아닐때 출력
-                }
-            }
-            else {
-                if (sentence[i][j - 1] == ' ' ) {
-                    if(isupper(sentence[i][j]) != 0){
-                        //나머지 단어가 대문자일때 출력
+    if(){
+        for (int i = 0; i < 10; ++i) {
+            for (int j = 0; j < sentence[i].length(); ++j) {
+                if (j == 0) {
+                    if (isupper(sentence[i][j] != 0)) {
+                        //첫단어 대문자일때 출력
                     }
                     else {
-                        //나머지 단어가 대문자 아닐때 출력
+                        //첫단어 대문자 아닐때 출력
                     }
                 }
-                
+                else {
+                    if (sentence[i][j - 1] == ' ') {
+                        if (isupper(sentence[i][j]) != 0) {
+                            //나머지 단어가 대문자일때 출력
+                        }
+                        else {
+                            //나머지 단어가 대문자 아닐때 출력
+                        }
+                    }
+
+                }
             }
         }
     }
