@@ -63,6 +63,32 @@ public:
 	void plus_pro();
 	void minus_pro();
 	void det_pro();
+	int calc_det(int matrix[4][4], int n) {
+		int det = 0;
+		if (n == 1) {
+			return matrix[0][0];
+		}
+		int sub_mat[4][4];
+		int sign = 1;
+		for (int x = 0; x < n; ++x) {
+			int subi = 0;
+			for (int i = 1; i < n; ++i) {
+				int subj = 0;
+				for (int j = 0; j < n; ++j) {
+					if (j == x) {
+						continue;
+					}
+
+					sub_mat[subi][subj] = matrix[i][j];
+					++subj;
+				}
+				++subi;
+			}
+			det += sign * matrix[0][x] * calc_det(sub_mat, n - 1);
+			sign = -sign;
+		}
+		return det;
+	}
 	void trans_pro();
 	void holzzag_pro();
 	void reset_pro();
@@ -96,7 +122,8 @@ void procession::minus_pro() {
 	}
 }
 void procession::det_pro() {
-
+	std::cout << "행렬1의 행렬식: " << calc_det(element, 4) << '\n';
+	std::cout << "행렬2의 행렬식: " << calc_det(element2, 4) << '\n';
 }
 void procession::trans_pro() {
 
@@ -273,7 +300,7 @@ int main() {
 			proce.show_result();
 			break;
 		case 'r':
-
+			proce.det_pro();
 			break;
 		case 't':
 			proce.trans_pro();
