@@ -9,7 +9,7 @@ private:
 	int element[4][4] = {};
 	int element2[4][4] = {};
 	int have_two[2] = {};
-	bool is_silhang = false;
+	int is_silhang = 0;
 public:
 	procession() {
 		std::random_device rd;
@@ -66,7 +66,7 @@ public:
 	void trans_pro();
 	void holzzag_pro();
 	void reset_pro();
-	void rand_mult_pro(int num);
+	void mult_num(int num);
 	void show_result();
 	void show_pro();
 
@@ -114,7 +114,7 @@ void procession::trans_pro() {
 	show_result();
 }
 void procession::holzzag_pro() {
-	if (is_silhang) {
+	if (is_silhang==0) {
 		for (int i = 0; i < 4; i++) {
 			for (int j = 0; j < 4; j++) {
 				if (element[i][j] % 2 == 0) {
@@ -125,8 +125,9 @@ void procession::holzzag_pro() {
 				}
 			}
 		}
+		is_silhang = 1;
 	}
-	else {
+	else if(is_silhang==1){
 		for (int i = 0; i < 4; i++) {
 			for (int j = 0; j < 4; j++) {
 				if (element[i][j] % 2 != 0) {
@@ -137,8 +138,12 @@ void procession::holzzag_pro() {
 				}
 			}
 		}
+		is_silhang = 2;
 	}
-	is_silhang = !is_silhang;
+	else {
+		show_pro();
+	}
+	
 }
 void procession::reset_pro() {
 	std::random_device rd;
@@ -186,7 +191,7 @@ void procession::reset_pro() {
 		}
 	}
 }
-void procession::rand_mult_pro(int num) {
+void procession::mult_num(int num) {
 	for (int i = 0; i < 4; i++) {
 		for (int j = 0; j < 4; j++) {
 			result_pro[i][j] = element[i][j] * num;
@@ -262,6 +267,7 @@ int main() {
 			proce.show_pro();
 			break;
 		case 'q':
+
 			return 0;
 
 		case 'n':
