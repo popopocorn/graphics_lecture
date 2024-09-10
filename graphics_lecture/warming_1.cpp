@@ -197,6 +197,13 @@ void procession::mult_num(int num) {
 			result_pro[i][j] = element[i][j] * num;
 		}
 	}
+	show_result();
+	for (int i = 0; i < 4; i++) {
+		for (int j = 0; j < 4; j++) {
+			result_pro[i][j] = element2[i][j] * num;
+		}
+	}
+	show_result();
 }
 void procession::show_result() {
 	std::cout << "결과 행렬:\n";
@@ -228,6 +235,7 @@ void procession::show_pro() {
 
 int main() {
 	char menu;
+	int mult_num = 0;
 	procession proce;
 	proce.show_pro();
 	while (1) {
@@ -269,11 +277,9 @@ int main() {
 		case 'q':
 
 			return 0;
-
-		case 'n':
-
-			break;
 		default:
+			mult_num = menu - '0';
+			proce.mult_num(mult_num);
 			break;
 		}
 	}
