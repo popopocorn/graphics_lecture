@@ -114,36 +114,49 @@ void procession::trans_pro() {
 	show_result();
 }
 void procession::holzzag_pro() {
-	if (is_silhang==0) {
-		for (int i = 0; i < 4; i++) {
-			for (int j = 0; j < 4; j++) {
-				if (element[i][j] % 2 == 0) {
-					result_pro[i][j] = 0;
-				}
-				else {
-					result_pro[i][j] = element[i][j];
-				}
-			}
-		}
-		is_silhang = 1;
-	}
-	else if(is_silhang==1){
-		for (int i = 0; i < 4; i++) {
-			for (int j = 0; j < 4; j++) {
-				if (element[i][j] % 2 != 0) {
-					result_pro[i][j] = 0;
-				}
-				else {
-					result_pro[i][j] = element[i][j];
+	switch(is_silhang){
+		case 0:
+			for (int i = 0; i < 4; i++) {
+				for (int j = 0; j < 4; j++) {
+					if (element[i][j] % 2 == 0) {
+						result_pro[i][j] = 0;
+					}
+					else {
+						result_pro[i][j] = element[i][j];
+					}
 				}
 			}
-		}
-		is_silhang = 2;
+			show_result();
+			is_silhang = 1;
+			break;
+		case 1:
+			for (int i = 0; i < 4; i++) {
+				for (int j = 0; j < 4; j++) {
+					if (element[i][j] % 2 != 0) {
+						result_pro[i][j] = 0;
+					}
+					else {
+						result_pro[i][j] = element[i][j];
+					}
+				}
+			}
+			show_result();
+			is_silhang = 2;
+			break;
+		case 2:
+			for (int y = 0; y < 4; y++) {
+				for (int x = 0; x < 4; x++) {
+					std::cout << element[y][x] << " ";
+				}
+				std::cout << "\n";
+			}
+			is_silhang = 0;
+			break;
+
+		default:
+
+			break;
 	}
-	else {
-		show_pro();
-	}
-	
 }
 void procession::reset_pro() {
 	std::random_device rd;
@@ -268,14 +281,12 @@ int main() {
 			break;
 		case 'e':
 			proce.holzzag_pro();
-			proce.show_result();
 			break;
 		case 's':
 			proce.reset_pro();
 			proce.show_pro();
 			break;
 		case 'q':
-
 			return 0;
 		default:
 			mult_num = menu - '0';
