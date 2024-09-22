@@ -61,6 +61,10 @@ public:
 	int get_y() {
 		return player_y;
 	}
+	void init_player() {
+		player_x = 0;
+		player_y = 0;
+	}
 };
 
 
@@ -95,7 +99,7 @@ int main() {
 				break;
 
 			case 'r':
-
+				p1.init_player();
 				board[p1.get_y()][p1.get_x()] = '*';
 				is_player = true;
 
@@ -135,6 +139,14 @@ int main() {
 
 				break;
 
+
+			case 'q':
+
+				return 0;
+			
+			default:
+
+				break;
 			}
 		}
 		print_board();
@@ -209,14 +221,13 @@ void init_board() {
 void make_path() {
 	int cur_x = 0, cur_y = 0;
 	int step_now_dir = 0;
-	int last_dir = -1;
 	int direction, dx, dy;
 
 	std::stack<std::pair<int, int>> path_stack;
 	path_stack.push({ cur_x, cur_y });
 
 	srand((unsigned)time(0));
-	board[cur_y][cur_x] = 0;
+	board[cur_y][cur_x] = '0';
 
 	while (cur_x < 29 || cur_y < 29) {
 		bool move = false;
@@ -247,14 +258,9 @@ void make_path() {
 			
 				if ((direction == 0 || direction == 2) && step_now_dir >= 3) {
 					step_now_dir = 0;
-					last_dir = -1;  
 				}
 				else if ((direction == 1 || direction == 3) && step_now_dir >= 4) {
 					step_now_dir = 0;
-					last_dir = -1;  
-				}
-				else {
-					last_dir = direction; 
 				}
 
 				move = true;  
