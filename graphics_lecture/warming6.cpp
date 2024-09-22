@@ -11,6 +11,14 @@
 char board[30][30]{};
 int player_x{};
 int player_y{};
+int dir[4][2] = {
+	(-1, 0), //╩С
+	(1, 0), //го
+	(0, -1), //аб
+	(0, 1) //©Л
+};
+
+
 
 void gotoxy(int go_x, int go_y) {
 	COORD pos = { go_x, go_y };
@@ -26,6 +34,7 @@ void make_path();
 
 int main() {
 	init_board();
+	make_path();
 	print_board();
 	
 }
@@ -96,5 +105,5 @@ void init_board() {
 
 
 void make_path() {
-
+	
 }
