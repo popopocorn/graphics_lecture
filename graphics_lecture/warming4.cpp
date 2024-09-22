@@ -45,6 +45,7 @@ private:
 	int card1_y;
 	int card2_x;
 	int card2_y;
+	bool reset_flag = false;
 	
 
 public:
@@ -56,7 +57,7 @@ public:
 		for (int y = 0; y < 5; ++y) {
 			for (int x = 0; x < 5; ++x) {
 				check_board[y][x].what_card = cards[temp_count];
-				check_board[y][x].is_reverse = true;
+				check_board[y][x].is_reverse = false;
 				++temp_count;
 			}
 		}
@@ -66,7 +67,12 @@ public:
 	void check_card();
 	void change_coord(std::string card1);
 	void calc_score();
-	
+	bool get_flag() {
+		return reset_flag;
+	}
+	void set_flag() {
+		reset_flag = false;
+	}
 	int get_score() {
 		return score;
 	}
@@ -79,10 +85,11 @@ public:
 		for (int y = 0; y < 5; ++y) {
 			for (int x = 0; x < 5; ++x) {
 				check_board[y][x].what_card = cards[temp_count];
-				check_board[y][x].is_reverse = true;
+				check_board[y][x].is_reverse = false;
 				++temp_count;
 			}
 		}
+		reset_flag = true;
 	}
 };
 
@@ -172,9 +179,12 @@ void card_check::select_board() {
 	std::cout << "                                                       ";
 	gotoxy(0, 9);
 	std::cout << "뒤집을 두 카드의 좌표를 입력하시오: ";
-	std::cin >> card1;
-	while (getchar() != '\n');
-	Sleep(1000);
+	std::getline(std::cin, card1);
+
+	if (card1[0] == 'r' || card1[0] == 'R') {
+		reset_game();
+		return;
+	}
 
 	change_coord(card1);
 	if (check_board[card1_y][card1_x].is_reverse || check_board[card2_y][card2_x].is_reverse) {
@@ -192,10 +202,6 @@ void card_check::select_board() {
 }
 
 void card_check::change_coord(std::string card1) {
-	if (card1[0] == 'r' || card1[0] == 'R') {
-		reset_game();
-		return;
-	}
 	switch(card1[0]) {
 	case 'a':
 		card1_x = 0;
@@ -296,6 +302,12 @@ int main() {
 		deck.select_board();
 		deck.print_board();
 		Sleep(1000);
+		if (deck.get_flag()) {
+			gotoxy(0, 10);
+			std::cout << "게임이 초기화 되었습니다.";
+			deck.set_flag();
+			continue;
+		}
 		deck.check_card();
 		if (deck.get_score() > 23) {
 			end = time(NULL);
