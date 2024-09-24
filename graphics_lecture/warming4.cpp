@@ -35,11 +35,13 @@ void gotoxy(int go_x, int go_y) {
 typedef struct board {
 	char what_card;
 	bool is_reverse;
+	bool is_correct;
 };
 class card_check {
 private:
 	board check_board[5][5]{};
 	int score{};
+	int check_count{ 75 };
 	std::string cards = {"AABBCCDDEEFFGGHHIIJJKKLL@"};
 	int card1_x;
 	int card1_y;
@@ -58,6 +60,7 @@ public:
 			for (int x = 0; x < 5; ++x) {
 				check_board[y][x].what_card = cards[temp_count];
 				check_board[y][x].is_reverse = false;
+				check_board[y][x].is_correct = false;
 				++temp_count;
 			}
 		}
@@ -86,11 +89,16 @@ public:
 			for (int x = 0; x < 5; ++x) {
 				check_board[y][x].what_card = cards[temp_count];
 				check_board[y][x].is_reverse = false;
+				check_board[y][x].is_correct = false;
 				++temp_count;
 			}
 		}
 		reset_flag = true;
+		check_count = 75;
 	}
+	int get_count() {
+		return check_count;
+ 	}
 };
 
 void card_check::print_board() {
@@ -171,7 +179,8 @@ void card_check::print_board() {
 	}
 	gotoxy(0, 7);
 	default_color;
-	std::cout << "현재 점수: " << score;
+	std::cout << "현재 점수: " << score << '\n';
+	std::cout << "남은 횟수: " << check_count;
 }
 void card_check::select_board() {
 	std::string card1{};
@@ -191,7 +200,7 @@ void card_check::select_board() {
 	}
 
 	change_coord(card1);
-	if (check_board[card1_y][card1_x].is_reverse || check_board[card2_y][card2_x].is_reverse) {
+	if (check_board[card1_y][card1_x].is_reverse || check_board[card2_y][card2_x].is_reverse || check_board[card2_y][card2_x].is_correct || check_board[card1_y][card1_x].is_correct) {
 		gotoxy(0, 11);
 		std::cout << "이미 뒤집힌 카드 입니다.";
 	}
@@ -206,10 +215,11 @@ void card_check::select_board() {
 		if (not check_board[card2_y][card2_x].is_reverse) {
 			check_board[card2_y][card2_x].is_reverse = true;
 		}
+		print_board();
+		Sleep(1500);
+		check_card();
 	}
-	print_board();
-	Sleep(1000);
-	check_card();
+	
 }
 
 void card_check::change_coord(std::string card1) {
@@ -289,6 +299,7 @@ void card_check::check_card() {
 					gotoxy(0, 11);
 					std::cout << "조커발견!";
 					score += 2;
+					--check_count;
 					return;
 				}
 			}
@@ -299,6 +310,7 @@ void card_check::check_card() {
 		check_board[card1_y][card1_x].is_reverse = false;
 		check_board[card2_y][card2_x].is_reverse = false;
 	}
+	--check_count;
 }
 
 void card_check::calc_score() {
@@ -323,6 +335,13 @@ int main() {
 			end = time(NULL);
 			gotoxy(0, 12);
 			std::print("소요시간 {}초", end-start);
+			return 0;
+		}
+		else if (deck.get_count() == 0) {
+			end = time(NULL);
+			gotoxy(0, 12);
+			std::print("실패!!\n", end - start);
+			std::print("소요시간 {}초", end - start);
 			return 0;
 		}
 	}

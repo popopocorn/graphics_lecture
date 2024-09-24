@@ -1,6 +1,6 @@
 #include<iostream>
 #include<Windows.h>
-
+#include<print>
 
 void gotoxy(int x, int y) {
 	COORD pos = { x,y };
@@ -28,6 +28,8 @@ public:
 			}
 			std::cout << '\n';
 		}
+		gotoxy(0, 50);
+		std::print("가로: {} 세로: {}", width, height);
 
 	}
 	void set_square();
@@ -137,6 +139,7 @@ void move_board::change_size(char command) {
 			for (int y = 29; y > -1; --y) {
 				if (y != 29 && board[y][x] == 1 && board[y+1][x] == 0) {
 					board[y+1][x] = 1;
+					up_flag = true;
 				}
 				
 			}
@@ -184,6 +187,7 @@ void move_board::change_size(char command) {
 			down_flag = false;
 		}
 	}
+	
 }
 void move_board::change_x(char command) {
 	bool up_flag = false;
@@ -230,6 +234,7 @@ void move_board::change_y(char command) {
 			for (int y = 29; y > -1; --y) {
 				if (y != 29 && board[y][x] == 1 && board[y + 1][x] == 0) {
 					board[y + 1][x] = 1;
+					up_flag = true;
 				}
 
 			}
@@ -369,6 +374,9 @@ int main() {
 	board.set_square();
 	while(true){
 		board.print_board();
+		gotoxy(0, 31);
+		std::cout << "                                           ";
+		gotoxy(0, 31);
 		std::cin >> menu;
 		while (getchar() != '\n');
 		temp_menu = tolower(menu);
