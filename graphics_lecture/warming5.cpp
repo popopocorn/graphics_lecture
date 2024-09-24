@@ -158,7 +158,7 @@ void move_board::change_size(char command) {
 				}
 				
 			}
-			if (board[y][29] == 1 && board[y][0] == 0 && not down_flag) {
+			if (board[y][29] == 1 && board[y][0] == 0) {
 				board[y][29] = 0;
 				down_flag = true;
 			}
@@ -174,7 +174,7 @@ void move_board::change_size(char command) {
 					down_flag = true;
 				}
 			}
-			if (board[29][x] == 1 && board[0][x] == 0 && not down_flag) {
+			if (board[29][x] == 1 && board[0][x] == 0) {
 				board[29][x] = 0;
 				down_flag = true;
 			}
@@ -211,7 +211,7 @@ void move_board::change_x(char command) {
 				}
 
 			}
-			if (board[y][29] == 1 && board[y][0] == 0 && not down_flag) {
+			if (board[y][29] == 1 && board[y][0] == 0) {
 				board[y][29] = 0;
 				down_flag = true;
 			}
@@ -329,7 +329,7 @@ void move_board::clac_area() {
 }
 void move_board::calc_ratio() {
 	gotoxy(0, 33);
-	std::cout << ((height * width) / (30 * 30)) * 100 << "%";
+	std::cout << (static_cast<double>(height * width) / (30 * 30)) * 100 << "%";
 }
 void move_board::reset() {
 	for (int i = 0; i < 30; i++) {
