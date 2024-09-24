@@ -180,7 +180,11 @@ void card_check::select_board() {
 	gotoxy(0, 9);
 	std::cout << "뒤집을 두 카드의 좌표를 입력하시오: ";
 	std::getline(std::cin, card1);
-
+	if (card1.length() > 5) {
+		gotoxy(0, 11);
+		std::cout << "올바르지 않은 위치입니다.";
+		return;
+	}
 	if (card1[0] == 'r' || card1[0] == 'R') {
 		reset_game();
 		return;
@@ -191,6 +195,10 @@ void card_check::select_board() {
 		gotoxy(0, 11);
 		std::cout << "이미 뒤집힌 카드 입니다.";
 	}
+	else if (card1_x == -1 || card1_y == -1 || card2_x == -1 || card2_y == -1) {
+		gotoxy(0, 11);
+		std::cout << "올바르지 않은 위치입니다.";
+	}
 	else {
 		if (not check_board[card1_y][card1_x].is_reverse) {
 			check_board[card1_y][card1_x].is_reverse = true;
@@ -199,6 +207,9 @@ void card_check::select_board() {
 			check_board[card2_y][card2_x].is_reverse = true;
 		}
 	}
+	print_board();
+	Sleep(1000);
+	check_card();
 }
 
 void card_check::change_coord(std::string card1) {
@@ -224,8 +235,7 @@ void card_check::change_coord(std::string card1) {
 		break;
 	
 	default:
-		gotoxy(0, 11);
-		std::cout << "올바르지 않은 위치입니다.\n";
+		card1_x = -1;
 		return;
 	}
 	
@@ -252,13 +262,15 @@ void card_check::change_coord(std::string card1) {
 		break;
 
 	default:
-		gotoxy(0, 11);
-		std::cout << "올바르지 않은 위치입니다.\n";
-		return;
+		card2_x = -1;
 	}
 	if (int(card1[1]) - '1' < 5 && int(card1[4]) - '1' < 5) {
 		card1_y = int(card1[1]) - '1';
 		card2_y = int(card1[4]) - '1';
+	}
+	else {
+		card1_y = -1;
+		card2_y = -1;
 	}
 
 }
@@ -300,15 +312,13 @@ int main() {
 	while(true){
 		deck.print_board();
 		deck.select_board();
-		deck.print_board();
-		Sleep(1000);
+
 		if (deck.get_flag()) {
 			gotoxy(0, 10);
 			std::cout << "게임이 초기화 되었습니다.";
 			deck.set_flag();
 			continue;
 		}
-		deck.check_card();
 		if (deck.get_score() > 23) {
 			end = time(NULL);
 			gotoxy(0, 12);

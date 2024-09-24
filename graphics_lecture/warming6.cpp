@@ -95,13 +95,15 @@ int main() {
 			case 13:
 				init_board();
 				make_path();
-
+				is_player = false;
 				break;
 
 			case 'r':
+			if(not is_player){
 				p1.init_player();
 				board[p1.get_y()][p1.get_x()] = '*';
 				is_player = true;
+			}
 
 				break;
 

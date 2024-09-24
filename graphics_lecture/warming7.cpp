@@ -104,11 +104,11 @@ void move_board::move_horizon(char command) {
 	else if(command=='X') {
 
 		for (int y = 0; y < 30; ++y) {
-			int first_val = board[y][0][1];
+			int first_val = board[y][0][0];
 			for (int x = 1; x < 30; ++x) {
-				board[y][x - 1][1] = board[y][x][1];
+				board[y][x - 1][0] = board[y][x][0];
 			}
-			board[y][29][1] = first_val;
+			board[y][29][0] = first_val;
 		}
 	}
 	else if (command == 'w') {
