@@ -215,7 +215,7 @@ void move_board::change_size(char command) {
 				}
 
 			}
-			if (board[y][29][0] == 1 && board[y][0][0] == 0 && not down_flag) {
+			if (board[y][29][0] == 1 && board[y][0][0] == 0) {
 				board[y][29][0] = 0;
 				down_flag = true;
 			}
@@ -231,7 +231,7 @@ void move_board::change_size(char command) {
 					down_flag = true;
 				}
 			}
-			if (board[29][x][0] == 1 && board[0][x][0] == 0 && not down_flag) {
+			if (board[29][x][0] == 1 && board[0][x][0] == 0 ) {
 				board[29][x][0] = 0;
 				down_flag = true;
 			}
@@ -276,7 +276,7 @@ void move_board::change_size(char command) {
 				}
 
 			}
-			if (board[y][29][1] == 1 && board[y][0][1] == 0 && not down_flag) {
+			if (board[y][29][1] == 1 && board[y][0][1] == 0) {
 				board[y][29][1] = 0;
 				down_flag = true;
 			}
@@ -292,7 +292,7 @@ void move_board::change_size(char command) {
 					down_flag = true;
 				}
 			}
-			if (board[29][x][1] == 1 && board[0][x][1] == 0 && not down_flag) {
+			if (board[29][x][1] == 1 && board[0][x][1] == 0) {
 				board[29][x][1] = 0;
 				down_flag = true;
 			}
